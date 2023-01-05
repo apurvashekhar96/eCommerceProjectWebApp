@@ -90,22 +90,7 @@ exports.postAddProduct = (req, res, next) => {
       const error = new Error(err);
       error.httpStatusCode = 500;
       return next(error);
-      // res.redirect("/500");
-      //////
-      // return res.status(500).render("admin/edit-product", {
-      //   pageTitle: "Add Product",
-      //   path: "/admin/add-product",
-      //   editing: false,
-      //   hasError: true,
-      //   errorMessage: "Database opearation failed, Please try again",
-      //   product: {
-      //     title: title,
-      //     imageUrl: imageUrl,
-      //     price: price,
-      //     description: description,
-      //   },
-      //   validationErrors: [],
-      // });
+     
     });
 };
 
@@ -121,6 +106,7 @@ exports.getEditProduct = (req, res, next) => {
       if (!product) {
         return res.redirect("/");
       }
+
       res.render("admin/edit-product", {
         pageTitle: "Edit Product",
         path: "/admin/edit-product",
@@ -195,60 +181,10 @@ exports.postEditProduct = (req, res, next) => {
     });
 };
 
-// exports.postEditProduct = (req, res, next) => {
-//   const prodId = req.body.productId;
-//   const updatedTitle = req.body.title;
-//   const updatedImageUrl = req.body.imageUrl;
-//   const updatedDescription = req.body.description;
-//   const updatedPrice = req.body.price;
-
-//   const product = new Product(
-//     updatedTitle,
-//     updatedImageUrl,
-//     updatedDescription,
-//     updatedPrice,
-//     prodId
-//   );
-//   product
-//     .save()
-//     .then((result) => {
-//       console.log("Updated Product!");
-//       res.redirect("/admin/admin-product-list");
-//     })
-//     .catch((err) => console.log(err));
-// };
-
-///////////////////////////////////////////////////////////////////////////////////
-/////////////////////////
-
-// exports.postDeleteProduct = (req, res, next) => {
-//   const prodId = req.body.productId;
-//   Product.findById(prodId)
-//     .then((product) => {
-//       if (!product) {
-//         return next(new Error("product not found!"));
-//       }
-//       fileHelper.deleteFile(product.imageUrl);
-//       return Product.deleteOne({ _id: prodId, userId: req.user._id });
-//     })
-//     // Product.deleteById(prodId)
-//     //Product.findByIdAndRemove(prodId)
-
-//     .then(() => {
-//       console.log(`destroyed💥💥💥💥`);
-//       res.redirect("/admin/admin-product-list");
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       const error = new Error(err);
-//       error.httpStatusCode = 500;
-//       return next(error);
-//     });
-// };
-//below is for deleting via async js requests
 
 exports.deleteProduct = (req, res, next) => {
   const prodId = req.params.productId;
+  console.log(prodId);
   Product.findById(prodId)
     .then((product) => {
       if (!product) {

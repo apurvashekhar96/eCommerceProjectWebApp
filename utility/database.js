@@ -31,5 +31,3 @@
 
 // exports.mongoConnect = mongoConnect;
 // exports.getDb = getDb;
-
-// No need of the above code with mongoose.

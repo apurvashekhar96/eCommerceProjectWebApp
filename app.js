@@ -7,17 +7,20 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 
 //without mongoose
-// const mongoConnect = require("./utility/database").mongoConnect;
+//const mongoConnect = require("./utility/database").mongoConnect;
 //for connecting mongoose with database
 const mongoose = require("mongoose");
+
 //import for using session
 const session = require("express-session");
+
 //for storing session data in mongodb, pass in the session in the following function
-// it will yield a constructor function
+//it will yield a constructor function.
 const MongoDBStore = require("connect-mongodb-session")(session);
 
 //using helmet for security
 const helmet = require("helmet");
+
 //using compression
 const compression = require("compression");
 
@@ -29,10 +32,10 @@ const csrf = require("csurf");
 const csrfProtection = csrf();
 
 //reading private key for openssl
-// const privateKey = fs.readFileSync("server.key");
-// const certificate = fs.readFileSync("server.cert");
+const privateKey = fs.readFileSync("server.key");
+const certificate = fs.readFileSync("server.cert");
 
-//congiguring multer to recieve images
+//configuring multer to recieve images
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "images");
@@ -169,10 +172,10 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(MONGODB_URI)
   .then((result) => {
-    app.listen(process.env.PORT || 3000);
+    // app.listen(process.env.PORT || 3000);
     //for manually setting up sssl certification
-    // https
-    //   .createServer({ key: privateKey, cert: certificate }, app)
-    //   .listen(process.env.PORT || 3000);
+    https
+      .createServer({ key: privateKey, cert: certificate }, app)
+      .listen(process.env.PORT || 3000);
   })
   .catch((err) => console.log(err));

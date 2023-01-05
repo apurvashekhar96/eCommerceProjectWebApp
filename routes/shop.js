@@ -13,7 +13,7 @@ router.get("/", shopController.getIndex);
 
 router.get("/products", shopController.getProducts);
 
-// //: symbol tells express to expexct dynamic parameter
+// //: symbol tells express to expect a dynamic variable
 router.get("/product/:productId", shopController.getProduct);
 
 router.get("/cart", isAuth, shopController.getCart);
